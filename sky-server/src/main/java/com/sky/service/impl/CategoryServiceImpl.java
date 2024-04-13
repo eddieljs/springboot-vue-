@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 功能：
@@ -116,5 +117,16 @@ public class CategoryServiceImpl implements CategoryService {
         category.setStatus(status);
         category.setId(id);
         categoryMapper.update(category);
+    }
+
+    /**
+     * 根据类型查询分类
+     * @param type
+     * @return
+     */
+    @Override
+    public List<Category> list(Integer type) {
+        List list = categoryMapper.list(type);
+        return list;
     }
 }

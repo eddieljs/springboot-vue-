@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * 功能：
  * 作者：ljs
@@ -42,4 +44,11 @@ public interface CategoryMapper {
      * @param category
      */
     void update(Category category);
+
+    /**
+     * categoryMapper.list(type);
+     * @param type
+     * @return
+     */
+    List list(Integer type);
 }
