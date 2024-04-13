@@ -13,8 +13,27 @@ public interface CategoryService {
 
     /**
      * 分页查询
-     * @param categoryDTO
+     * @param categoryPageQueryDTO
      * @return
      */
     PageResult pageQuery(CategoryPageQueryDTO categoryPageQueryDTO);
+
+    /**
+     * 删除分类
+     * @param id
+     */
+    void deleteById(Long id);
+
+    /**
+     * 更新分类
+     * @param categoryDTO
+     */
+    void update(CategoryDTO categoryDTO);
+
+    /**
+     * 启用禁用分类
+     * @param status
+     * @param id
+     */
+    void startOrstop(Integer status, Long id);
 }

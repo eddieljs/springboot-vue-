@@ -47,8 +47,48 @@ public class CategoryController {
     @GetMapping("/page")
     @ApiOperation("分页查询")
     public Result<PageResult> page(CategoryPageQueryDTO categoryPageQueryDTO){
-        log.info("分页查询");
+        log.info("分页查询，{}",categoryPageQueryDTO);
+        //select * from category limit 0,10
         PageResult pageResult = categoryService.pageQuery(categoryPageQueryDTO);
         return Result.success(pageResult);
+    }
+
+    /**
+     * 删除分类
+     * @param id
+     * @return
+     */
+    @DeleteMapping
+    @ApiOperation("删除分类")
+    public Result<String> deleteById(Long id){
+        log.info("删除分类，{}",id);
+        categoryService.deleteById(id);
+        return Result.success();
+    }
+
+    /**
+     * 更新分类
+     * @param categoryDTO
+     * @return
+     */
+    @PutMapping
+    @ApiOperation("更新分类")
+    public Result<String> update(@RequestBody CategoryDTO categoryDTO){
+        log.info("更新分类，{}",categoryDTO);
+        categoryService.update(categoryDTO);
+        return Result.success();
+    }
+
+    /**
+     * 启用禁用分类
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用禁用分类")
+    public Result<String> startOrstop(@PathVariable Integer status,Long id){
+        categoryService.startOrstop(status,id);
+        return Result.success();
     }
 }
