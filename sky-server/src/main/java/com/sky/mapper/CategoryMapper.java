@@ -50,7 +50,7 @@ public interface CategoryMapper {
     void update(Category category);
 
     /**
-     * categoryMapper.list(type);
+     * 根据类型查询分类
      * @param type
      * @return
      */
