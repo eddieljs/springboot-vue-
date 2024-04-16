@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 功能：
@@ -55,5 +56,17 @@ public class DishController {
         //select * from category limit 0,10
         PageResult pageResult = dishService.pageQuery(dishPageQueryDTO);
         return Result.success(pageResult);
+    }
+
+    /**
+     * 菜品批量删除
+     * @return
+     */
+    @DeleteMapping
+    @ApiOperation("删除菜品")
+    public Result delete(@RequestParam List<Long> ids){//todo 该注解作用：将数据分隔，存入集合
+        log.info("删除菜品id：{}",ids);
+        dishService.deleteBatch(ids);
+        return Result.success();
     }
 }
