@@ -7,6 +7,7 @@ import com.sky.properties.JwtProperties;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
+import com.sky.vo.DishVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -68,5 +69,37 @@ public class DishController {
         log.info("删除菜品id：{}",ids);
         dishService.deleteBatch(ids);
         return Result.success();
+    }
+
+    /**
+     * 起手停售菜品
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用禁用菜品")
+    public Result<String> startOrstop(@PathVariable Integer status,Long id){
+        log.info("起售停售菜品，{}",id);
+        dishService.startOrstop(status,id);
+        return Result.success();
+    }
+
+    /**
+     *根据id查菜品
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查菜品")
+    public Result<DishVO> getById(@PathVariable Long id){
+        log.info("根据id查菜品，{}",id);
+        DishVO dishVO = dishService.getByIdWithFlavor(id);
+        return Result.success(dishVO);
+    }
+    @PutMapping
+    @ApiOperation("修改菜品")
+    public Result update(@RequestBody DishDTO dishDTO){
+        log.info("修改菜品，{}",dishDTO);
+        dishService.update(dishDTO);
+        return Result.success();
+
     }
 }
