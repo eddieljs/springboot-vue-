@@ -11,3 +11,8 @@ sky:
     access-key-id: LTAI5tP5h2upN7FuwzNNEzNs
     access-key-secret: 8yXtC3mZwtvzTX9m0T79hzAl8D6FKf
     bucket-name: springboot-ljs
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
+    database: 1
