@@ -3,6 +3,7 @@ package com.sky.controller.admin;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
+import com.sky.entity.Dish;
 import com.sky.properties.JwtProperties;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
@@ -12,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -22,7 +24,7 @@ import java.util.List;
  * 作者：ljs
  * 日期：2024/4/15 0:10
  */
-@RestController
+@RestController("adminDishController")
 @RequestMapping("/admin/dish")
 @Slf4j
 @Api(tags = "菜品管理")
@@ -101,5 +103,16 @@ public class DishController {
         dishService.update(dishDTO);
         return Result.success();
 
+    }
+    /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    @GetMapping("/list")
+    @ApiOperation("根据分类id查询菜品")
+    public Result<List<Dish>> list(Long categoryId){
+        List<Dish> list = dishService.list(categoryId);
+        return Result.success(list);
     }
 }
