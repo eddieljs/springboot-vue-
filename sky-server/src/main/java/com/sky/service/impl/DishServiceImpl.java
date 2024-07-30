@@ -177,7 +177,11 @@ public class DishServiceImpl implements DishService {
         }
     }
 
-    @Override
+    /**
+     * 条件查询菜品和口味
+     * @param dish
+     * @return
+     */
     public List<DishVO> listWithFlavor(Dish dish) {
         List<Dish> dishList = dishMapper.list(dish);
 
@@ -196,6 +200,7 @@ public class DishServiceImpl implements DishService {
 
         return dishVOList;
     }
+
     /**
      * 根据分类id查询菜品
      * @param categoryId

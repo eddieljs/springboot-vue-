@@ -51,8 +51,11 @@ public class SetmealController {
     @GetMapping("/page")
     @ApiOperation("分页查询")
     public Result<PageResult> page(SetmealPageQueryDTO setmealPageQueryDTO) {
+        log.info("开始分页查询：“{}",setmealPageQueryDTO);
         PageResult pageResult = setmealService.pageQuery(setmealPageQueryDTO);
+        log.info("分页查询结束");
         return Result.success(pageResult);
+
     }
 
     /**
