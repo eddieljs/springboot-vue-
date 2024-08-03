@@ -21,7 +21,7 @@ import java.util.List;
  * 作者：ljs
  * 日期：2024/4/13 15:10
  */
-@RestController
+@RestController("adminOrderController")
 @RequestMapping("/admin/category")
 @Slf4j
 @Api(tags = "分类相关接口")
