@@ -1,19 +1,26 @@
 package com.sky.controller.user;
 
+import com.alibaba.fastjson.JSON;
 import com.sky.dto.OrdersCancelDTO;
 import com.sky.dto.OrdersPaymentDTO;
 import com.sky.dto.OrdersSubmitDTO;
+import com.sky.entity.Orders;
+import com.sky.mapper.OrderMapper;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.OrderService;
 import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderSubmitVO;
 import com.sky.vo.OrderVO;
+import com.sky.websocket.WebSocketServer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 功能：
@@ -28,6 +35,12 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private WebSocketServer webSocketServer;
+
+    @Autowired
+    private OrderMapper orderMapper;
 
     /**
      * 用户下单
@@ -105,6 +118,22 @@ public class OrderController {
     @ApiOperation("再来一单")
     public Result repetition(@PathVariable Long id) {
         orderService.repetition(id);
+        return Result.success();
+    }
+    @GetMapping("/reminder/{id}")
+    @ApiOperation("催单")
+    public Result reminder(@PathVariable Long id){
+        Orders order = orderMapper.getById(id);
+        String outTradeNo = order.getNumber();
+        //websocket向浏览器推送消息（type orderId content）
+        Map map = new HashMap<>();
+        map.put("type",2);//1-来单提醒 2-催单
+        map.put("orderId",id);
+        map.put("content","订单号：" + outTradeNo);
+
+        //map——》josn
+        String json = JSON.toJSONString(map);
+        webSocketServer.sendToAllClient(json);
         return Result.success();
     }
 
