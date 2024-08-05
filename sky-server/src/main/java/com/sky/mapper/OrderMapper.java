@@ -7,8 +7,11 @@ import com.sky.entity.Orders;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 功能：
@@ -65,4 +68,11 @@ public interface OrderMapper {
      */
     @Select("select * from orders where status = #{status} and order_time < #{orderTime}")
     List<Orders> getByStatusAndTimeLT(Integer status, LocalDateTime orderTime);
+
+    /**
+     * 计算营业额
+     * @param map
+     * @return
+     */
+    Double sumByMap(Map map);
 }
