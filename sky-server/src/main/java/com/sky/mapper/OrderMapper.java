@@ -75,4 +75,12 @@ public interface OrderMapper {
      * @return
      */
     Double sumByMap(Map map);
+
+
+    /**
+     * 计算订单数
+     * @param map
+     * @return
+     */
+    Integer OrderBymap(Map map);
 }
