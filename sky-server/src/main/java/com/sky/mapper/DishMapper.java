@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 功能：
@@ -91,4 +92,10 @@ public interface DishMapper {
      */
     @Select("select setmeal_id from setmeal_dish where dish_id= #{id}")
     List<Long> getSetmealIdBydishId(Long id);
+    /**
+     * 根据条件统计菜品数量
+     * @param map
+     * @return
+     */
+    Integer countByMap(Map map);
 }
